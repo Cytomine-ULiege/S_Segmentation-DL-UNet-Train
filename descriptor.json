@@ -1,0 +1,194 @@
+{
+    "name": "PixelClassification-DeepLearning-UNet-Build",
+    "container-image": {
+        "image": "neubiaswg5/w_pixelclassification-deeplearning-unet-build",
+        "type": "singularity"
+    },
+    "schema-version": "cytomine-0.1",
+    "description": "A workflow using the UNet deep learning achitecture for pixel classification",
+    "command-line": "python wrapper.py CYTOMINE_HOST CYTOMINE_PUBLIC_KEY CYTOMINE_PRIVATE_KEY CYTOMINE_ID_PROJECT CYTOMINE_ID_SOFTWARE LEARNING_RATE AUG_ROTATION AUG_WIDTH_SHIFT AUG_HEIGHT_SHIFT AUG_SHEAR_RANGE AUG_HFLIP AUG_VFLIP BATCH_SIZE EPOCHS IMAGE_WIDTH IMAGE_HEIGHT N_CHANNELS",
+    "inputs": [
+        {
+            "id": "cytomine_host",
+            "value-key": "@ID",
+            "command-line-flag": "--@id",
+            "name": "Cytomine host",
+            "description": "Cytomine server hostname",
+            "type": "String",
+            "optional": false,
+            "set-by-server": true
+        },
+        {
+            "id": "cytomine_public_key",
+            "value-key": "@ID",
+            "command-line-flag": "--@id",
+            "name": "Cytomine public key",
+            "description": "Cytomine public key",
+            "type": "String",
+            "optional": false,
+            "set-by-server": true
+        },
+        {
+            "id": "cytomine_private_key",
+            "value-key": "@ID",
+            "command-line-flag": "--@id",
+            "name": "Cytomine private key",
+            "description": "Cytomine private key",
+            "type": "String",
+            "optional": false,
+            "set-by-server": true
+        },
+        {
+            "id": "cytomine_id_project",
+            "value-key": "@ID",
+            "command-line-flag": "--@id",
+            "name": "Cytomine project id",
+            "description": "Cytomine project id",
+            "type": "String",
+            "optional": false,
+            "set-by-server": true
+        },
+        {
+            "id": "cytomine_id_software",
+            "value-key": "@ID",
+            "command-line-flag": "--@id",
+            "name": "Cytomine software id",
+            "description": "Cytomine software id",
+            "type": "String",
+            "optional": false,
+            "set-by-server": true
+        },
+        {
+            "id": "learning_rate",
+            "value-key": "@ID",
+            "command-line-flag": "--@id",
+            "name": "Learning rate",
+            "description": "Learning rate for Adam optimizer.",
+            "type": "Number",
+            "optional": true,
+            "default": 3e-4,
+            "set-by-server": false
+        },
+        {
+            "id": "aug_rotation",
+            "value-key": "@ID",
+            "command-line-flag": "--@id",
+            "name": "Augmentation rotation",
+            "description": "Data augmentation: rotation (in degree)",
+            "type": "Number",
+            "optional": true,
+            "default": 15,
+            "set-by-server": false
+        },
+        {
+            "id": "aug_width_shift",
+            "value-key": "@ID",
+            "command-line-flag": "--@id",
+            "name": "Augmentation width shift",
+            "description": "Data augmentation: width shift (fraction of total or number of pixels)",
+            "type": "Number",
+            "optional": true,
+            "default": 0.15,
+            "set-by-server": false
+        },
+        {
+            "id": "aug_height_shift",
+            "value-key": "@ID",
+            "command-line-flag": "--@id",
+            "name": "Augmentation height shift",
+            "description": "Data augmentation: height shift (fraction of total or number of pixels)",
+            "type": "Number",
+            "optional": true,
+            "default": 0.15,
+            "set-by-server": false
+        },
+        {
+            "id": "aug_shear_range",
+            "value-key": "@ID",
+            "command-line-flag": "--@id",
+            "name": "Augmentation shear range",
+            "description": "Data augmentation: shear range (angle in degree)",
+            "type": "Number",
+            "optional": true,
+            "default": 0.15,
+            "set-by-server": false
+        },
+        {
+            "id": "aug_hflip",
+            "value-key": "@ID",
+            "command-line-flag": "--@id",
+            "name": "Augmentation horizontal flip",
+            "description": "Data augmentation: horizontal flip",
+            "type": "Boolean",
+            "optional": true,
+            "default": true,
+            "set-by-server": false
+        },
+        {
+            "id": "aug_vflip",
+            "value-key": "@ID",
+            "command-line-flag": "--@id",
+            "name": "Augmentation vertical flip",
+            "description": "Data augmentation: vertical flip",
+            "type": "Boolean",
+            "optional": true,
+            "default": true,
+            "set-by-server": false
+        },
+        {
+            "id": "batch_size",
+            "value-key": "@ID",
+            "command-line-flag": "--@id",
+            "name": "Batch size",
+            "description": "Batch size.",
+            "type": "Number",
+            "optional": true,
+            "default": 1,
+            "set-by-server": false
+        },
+        {
+            "id": "epochs",
+            "value-key": "@ID",
+            "command-line-flag": "--@id",
+            "name": "Epochs",
+            "description": "Number of training epochs.",
+            "type": "Number",
+            "optional": true,
+            "default": 200,
+            "set-by-server": false
+        },
+        {
+            "id": "image_width",
+            "value-key": "@ID",
+            "command-line-flag": "--@id",
+            "name": "Image width",
+            "description": "Image width",
+            "type": "Number",
+            "optional": true,
+            "default": 224,
+            "set-by-server": false
+        },
+        {
+            "id": "image_height",
+            "value-key": "@ID",
+            "command-line-flag": "--@id",
+            "name": "Image height",
+            "description": "Image height",
+            "type": "Number",
+            "optional": true,
+            "default": 150,
+            "set-by-server": false
+        },
+        {
+            "id": "n_channels",
+            "value-key": "@ID",
+            "command-line-flag": "--@id",
+            "name": "Number of channels",
+            "description": "Number of channels in image (e.g. 3 for RGB)",
+            "type": "Number",
+            "optional": true,
+            "default": 3,
+            "set-by-server": false
+        }
+    ]
+}
