@@ -38,7 +38,7 @@ def main(argv):
         # 2. Download the images (first input, then ground truth image)
         cj.job.update(progress=1, statusComment="Downloading images (to {})...".format(in_path))
         image_instances = ImageInstanceCollection().fetch_with_filter("project", cj.parameters.cytomine_id_project)
-        input_images = [i for i in image_instances if gt_suffix not in i.originalFilename][:1]
+        input_images = [i for i in image_instances if gt_suffix not in i.originalFilename][:5]
         gt_images = [i for i in image_instances if gt_suffix in i.originalFilename]
 
         for input_image in input_images:
@@ -55,7 +55,8 @@ def main(argv):
 
         # load data
         cj.job.update(progress=30, statusComment="Workflow: preparing data...")
-        dims = cj.parameters.image_height, cj.parameters.image_width, cj.parameters.n_channels
+        dims = (cj.parameters.image_height, cj.parameters.image_width, cj.parameters.n_channels)
+        mask_dims = (dims[0], dims[1], cj.parameters.n_classes)
 
         # load input images
         imgs = load_data(cj, dims, in_path, **{
@@ -68,13 +69,13 @@ def main(argv):
         imgs /= train_std
 
         # load masks
-        masks = load_data(cj, dims, gt_path, **{
+        masks = load_data(cj, mask_dims, gt_path, dtype=np.int, is_masks=True, n_classes=cj.parameters.n_classes, ** {
             "start": 45, "end": 55, "period": 0.1,
             "prefix": "Workflow: load training masks images"
         })
 
         cj.job.update(progress=56, statusComment="Workflow: build model...")
-        unet = create_unet(dims)
+        unet = create_unet(dims, n_classes=cj.parameters.n_classes)
         unet.compile(optimizer=Adam(lr=cj.parameters.learning_rate), loss='binary_crossentropy')
 
         cj.job.update(progress=60, statusComment="Workflow: prepare training...")
