@@ -38,7 +38,7 @@ def main(argv):
         # 2. Download the images (first input, then ground truth image)
         cj.job.update(progress=1, statusComment="Downloading images (to {})...".format(in_path))
         image_instances = ImageInstanceCollection().fetch_with_filter("project", cj.parameters.cytomine_id_project)
-        input_images = [i for i in image_instances if gt_suffix not in i.originalFilename][:5]
+        input_images = [i for i in image_instances if gt_suffix not in i.originalFilename]
         gt_images = [i for i in image_instances if gt_suffix in i.originalFilename]
 
         for input_image in input_images:
