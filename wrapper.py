@@ -89,7 +89,6 @@ def main(argv):
 
         weight_filepath = os.path.join(tmp_path, 'weights.hdf5')
         callbacks = [
-            EarlyStopping(monitor='loss', patience=5, verbose=0, min_delta=1e-4),
             ModelCheckpoint(weight_filepath, monitor='loss', save_best_only=True)
         ]
 
@@ -111,8 +110,8 @@ def main(argv):
         Property(cj.job, key="image_width", value=cj.parameters.image_width).save()
         Property(cj.job, key="image_height", value=cj.parameters.image_height).save()
         Property(cj.job, key="n_channels", value=cj.parameters.n_channels).save()
-        Property(cj.job, key="train_mean", value=train_mean).save()
-        Property(cj.job, key="image_width", value=train_std).save()
+        Property(cj.job, key="train_mean", value=float(train_mean)).save()
+        Property(cj.job, key="image_width", value=float(train_std)).save()
 
         cj.job.update(status=Job.TERMINATED, progress=100, statusComment="Finished.")
 
