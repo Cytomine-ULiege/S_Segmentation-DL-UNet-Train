@@ -89,7 +89,7 @@ def main(argv):
 
         weight_filepath = os.path.join(tmp_path, 'weights.hdf5')
         callbacks = [
-            EarlyStopping(monitor='loss', patience=5, verbose=0),
+            EarlyStopping(monitor='loss', patience=5, verbose=0, min_delta=1e-4),
             ModelCheckpoint(weight_filepath, monitor='loss', save_best_only=True)
         ]
 
